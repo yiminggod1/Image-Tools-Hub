@@ -3,7 +3,8 @@ const M=[{"slug":"image-compressor","name":"Compress Image","desc":"Compress ima
 const S=window.TOOL_SLUG;
 const T=S?M.find(x=>x.slug===S):null;
 const $=s=>document.querySelector(s), state={file:null,files:[],img:null,blob:null,name:'output.png'};
-const fmt=n=>{if(!n&&n!==0)return '—';let u=['B','KB','MB','GB'],i=0,v=n;let esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));while(v>=1024&&i<3){v/=1024;i++}return (v<10&&i?v.toFixed(1):Math.round(v))+' '+u[i]};
+const fmt=n=>{if(!n&&n!==0)return '—';let u=['B','KB','MB','GB'],i=0,v=n;while(v>=1024&&i<3){v/=1024;i++}return (v<10&&i?v.toFixed(1):Math.round(v))+' '+u[i]};
+const esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const idb=()=>new Promise((ok,bad)=>{const r=indexedDB.open('ithub',1);r.onupgradeneeded=()=>r.result.createObjectStore('files');r.onsuccess=()=>ok(r.result);r.onerror=()=>bad(r.error)});
 async function savePending(file){try{const db=await idb();await new Promise((ok,bad)=>{const t=db.transaction('files','readwrite');t.objectStore('files').put(file,'pending');t.oncomplete=ok;t.onerror=()=>bad(t.error)});db.close();return true}catch(e){return false}}
 async function takePending(){try{const db=await idb();const f=await new Promise((ok,bad)=>{const t=db.transaction('files','readonly');const r=t.objectStore('files').get('pending');r.onsuccess=()=>ok(r.result);r.onerror=()=>bad(r.error)});db.close();return f||null}catch(e){return null}}
