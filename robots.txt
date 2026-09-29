@@ -1,0 +1,1 @@
+User-agent: *\nAllow: /\nSitemap: https://yiminggod1.github.io/Image-Tools-Hub/sitemap.xml\n
