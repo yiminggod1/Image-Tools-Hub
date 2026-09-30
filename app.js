@@ -29,7 +29,7 @@ function meta(){if(!state.file||!state.img)return;$('#meta').innerHTML=[['File',
 function controlHTML(){
 let t=T.type;
 if(/^compression$|^target/.test(t)){
-  let fixed=/\\.jpg$/.test(T.slug)?'image/jpeg':/\\.png$/.test(T.slug)?'image/png':/\\.webp$/.test(T.slug)?'image/webp':null;
+  let fixed=/.jpg$/.test(T.slug)?'image/jpeg':/.png$/.test(T.slug)?'image/png':/.webp$/.test(T.slug)?'image/webp':null;
   let target=/^target/.test(t);
   let out=target?'<select id=fmt><option value=image/jpeg selected>JPG</option><option value=image/webp>WebP</option></select>':formatSelect(fixed);
   return (target?'':'<div class=control id=qualityControl><label>Quality</label><div class=range><input id=q type=range min=20 max=100 value=82><span class=rv id=qv>82%</span></div></div>')+'<div class=control><label>Output</label>'+out+'</div>';
