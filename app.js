@@ -111,7 +111,7 @@ function toolGuide(){
     'batch-image-resizer':{why:'Resize a group of images to a common width while keeping their proportions.',tip:'Group files that belong to the same layout or content system so one width makes sense for the whole batch.',q:[['Will every output have the same height?','Not necessarily. Height follows each image’s original aspect ratio.']]}
   };
   const d=data[slug]||{};
-  let steps,why=d.why,note=d.tip,faq=d.q||[];
+  let steps=['Choose the image.','Set the available options.','Preview the result and download the finished copy.'],why=d.why,note=d.tip,faq=d.q||[];
   if(t==='compression'&&!d.why){steps=['Choose the image and output format.','Adjust compression quality when the format supports it.','Run the tool, check the final file size, then download the copy.'];}
   else if(/^target/.test(t)&&!d.why){let kb=t.replace('target','');steps=['Choose the image.','Let the tool work toward the '+kb+'KB target.','Check the exported size and download the result.'];why='Built for workflows that need a compact file rather than a particular quality percentage.';note='Very large or detailed images may need fewer pixels as well as stronger compression.'}
   else if((t==='resize'||t==='width'||t==='height'||t==='percent')&&!d.why){steps=['Choose the image.','Set the dimension or scale you need.','Preview the new size and download the resized file.'];why='Useful when a destination requires a specific pixel size.';note='Check the final dimensions before downloading.'}
